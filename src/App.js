@@ -1,6 +1,7 @@
 import {Component} from 'react'
-import './App.css'
 import Popup from 'reactjs-popup'
+import 'reactjs-popup/dist/index.css'
+import './App.css'
 import Choice from './components/Choice'
 import ScoreComponent from './components/Choice/styledComponent'
 
@@ -108,7 +109,15 @@ class App extends Component {
           <ScoreComponent>{score}</ScoreComponent>
         </div>
         {renderResult ? this.renderScore() : this.renderChoices()}
-        <Popup />
+        <Popup
+          trigger={<button type="button">Rules</button>}
+          position="right center"
+        >
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/rock-paper-scissor/rules-image.png"
+            alt="rules"
+          />
+        </Popup>
       </div>
     )
   }
