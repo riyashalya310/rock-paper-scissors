@@ -4,17 +4,15 @@ import {RiCloseLine} from 'react-icons/ri'
 
 export default () => (
   <Popup
-    trigger={<button type="button"> RULES</button>}
+    trigger={<button type="button"> Rules</button>}
     position="right center"
   >
     {close => (
       <>
-        <div>
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/rock-paper-scissor/rules-image.png"
-            alt="rules"
-          />
-        </div>
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/rock-paper-scissor/rules-image.png"
+          alt="rules"
+        />
         <button
           type="button"
           className="trigger-button"

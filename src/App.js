@@ -2,6 +2,7 @@ import {Component} from 'react'
 import './App.css'
 import Popup from 'reactjs-popup'
 import Choice from './components/Choice'
+import ScoreComponent from './components/Choice/styledComponent'
 
 const choicesList = [
   {
@@ -27,19 +28,20 @@ class App extends Component {
     renderResult: false,
   }
 
-  renderChoices = () => {
+  renderChoices = () => (
+    <ul>
+      {choicesList.map(choice => (
+        <Choice
+          details={choice}
+          key={choice.id}
+          onClickChoice={this.onClickChoice}
+        />
+      ))}
+    </ul>
+  )
+
+  onClickPlayAgain = () => {
     this.setState({renderResult: false})
-    return (
-      <ul>
-        {choicesList.map(choice => (
-          <Choice
-            details={choice}
-            key={choice.id}
-            onClickChoice={this.onClickChoice}
-          />
-        ))}
-      </ul>
-    )
   }
 
   renderScore = (id, imageUrl) => {
@@ -50,25 +52,31 @@ class App extends Component {
       if (opponentChoice.id === 'PAPER') {
         result = 'YOU LOSE'
         this.setState(prevState => ({score: prevState.score - 1}))
-      } else {
+      } else if (opponentChoice.id === 'SCISSOR') {
         result = 'YOU WIN'
         this.setState(prevState => ({score: prevState.score + 1}))
+      } else {
+        result = 'IT IS DRAW'
       }
     } else if (id === 'PAPER') {
       if (opponentChoice.id === 'ROCK') {
         result = 'YOU WIN'
         this.setState(prevState => ({score: prevState.score + 1}))
-      } else {
+      } else if (opponentChoice.id === 'SCISSOR') {
         result = 'YOU LOSE'
         this.setState(prevState => ({score: prevState.score - 1}))
+      } else {
+        result = 'IT IS DRAW'
       }
     } else if (id === 'SCISSOR') {
       if (opponentChoice.id === 'PAPER') {
         result = 'YOU WIN'
         this.setState(prevState => ({score: prevState.score + 1}))
-      } else {
+      } else if (opponentChoice.id === 'ROCK') {
         result = 'YOU LOSE'
         this.setState(prevState => ({score: prevState.score - 1}))
+      } else {
+        result = 'IT IS DRAW'
       }
     }
     return (
@@ -78,7 +86,7 @@ class App extends Component {
         <p>OPPONENT</p>
         <img src={opponentChoice.imageUrl} alt="opponent choice" />
         <p>{result}</p>
-        <button type="button" onClick={this.renderChoices}>
+        <button type="button" onClick={this.onClickPlayAgain}>
           PLAY AGAIN
         </button>
       </div>
@@ -95,11 +103,9 @@ class App extends Component {
     return (
       <div>
         <div>
-          <p>ROCK</p>
-          <p>PAPER</p>
-          <p>SCISSORS</p>
+          <h1>ROCK PAPER SCISSORS</h1>
           <p>Score</p>
-          <p>{score}</p>
+          <ScoreComponent>{score}</ScoreComponent>
         </div>
         {renderResult ? this.renderScore() : this.renderChoices()}
         <Popup />
