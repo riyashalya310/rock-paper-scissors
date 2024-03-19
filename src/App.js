@@ -27,6 +27,8 @@ class App extends Component {
   state = {
     score: 0,
     renderResult: false,
+    id: null,
+    imageUrl: '',
   }
 
   renderChoices = () => (
@@ -54,14 +56,14 @@ class App extends Component {
         result = 'YOU LOSE'
         this.setState(prevState => ({score: prevState.score - 1}))
       } else if (opponentChoice.id === 'SCISSOR') {
-        result = 'YOU WIN'
+        result = 'YOU W0N'
         this.setState(prevState => ({score: prevState.score + 1}))
       } else {
         result = 'IT IS DRAW'
       }
     } else if (id === 'PAPER') {
       if (opponentChoice.id === 'ROCK') {
-        result = 'YOU WIN'
+        result = 'YOU W0N'
         this.setState(prevState => ({score: prevState.score + 1}))
       } else if (opponentChoice.id === 'SCISSOR') {
         result = 'YOU LOSE'
@@ -71,7 +73,7 @@ class App extends Component {
       }
     } else if (id === 'SCISSOR') {
       if (opponentChoice.id === 'PAPER') {
-        result = 'YOU WIN'
+        result = 'YOU W0N'
         this.setState(prevState => ({score: prevState.score + 1}))
       } else if (opponentChoice.id === 'ROCK') {
         result = 'YOU LOSE'
@@ -95,12 +97,12 @@ class App extends Component {
   }
 
   onClickChoice = (id, imageUrl) => {
-    this.setState({renderResult: true})
+    this.setState({renderResult: true, id, imageUrl})
     return this.renderScore(id, imageUrl)
   }
 
   render() {
-    const {score, renderResult} = this.state
+    const {score, renderResult, id, imageUrl} = this.state
     return (
       <div>
         <div>
@@ -108,7 +110,7 @@ class App extends Component {
           <p>Score</p>
           <ScoreComponent>{score}</ScoreComponent>
         </div>
-        {renderResult ? this.renderScore() : this.renderChoices()}
+        {renderResult ? this.renderScore(id, imageUrl) : this.renderChoices()}
         <Popup
           trigger={<button type="button">Rules</button>}
           position="right center"
