@@ -2,6 +2,7 @@ import {Component} from 'react'
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 import './App.css'
+import {RiCloseLine} from 'react-icons/ri'
 import Choice from './components/Choice'
 import ScoreComponent from './components/Choice/styledComponent'
 
@@ -48,7 +49,7 @@ class App extends Component {
   }
 
   renderScore = (id, imageUrl) => {
-    const randomNumber = Math.floor(Math.random() * 10)
+    const randomNumber = Math.floor(Math.random() * choicesList.length)
     const opponentChoice = choicesList[randomNumber % 3]
     let result = ''
     if (id === 'ROCK') {
@@ -115,10 +116,17 @@ class App extends Component {
           trigger={<button type="button">Rules</button>}
           position="right center"
         >
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/rock-paper-scissor/rules-image.png"
-            alt="rules"
-          />
+          {close => (
+            <div>
+              <button aria-label="close" onClick={close} type="button">
+                <RiCloseLine />
+              </button>
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/rock-paper-scissor/rules-image.png"
+                alt="rules"
+              />
+            </div>
+          )}
         </Popup>
       </div>
     )
