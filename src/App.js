@@ -56,15 +56,15 @@ class App extends Component {
       if (opponentChoice.id === 'PAPER') {
         result = 'YOU LOSE'
         this.setState(prevState => ({score: prevState.score - 1}))
-      } else if (opponentChoice.id === 'SCISSOR') {
-        result = 'YOU W0N'
+      } else if (opponentChoice.id === 'SCISSORS') {
+        result = 'YOU WON'
         this.setState(prevState => ({score: prevState.score + 1}))
       } else {
         result = 'IT IS DRAW'
       }
     } else if (id === 'PAPER') {
       if (opponentChoice.id === 'ROCK') {
-        result = 'YOU W0N'
+        result = 'YOU WON'
         this.setState(prevState => ({score: prevState.score + 1}))
       } else if (opponentChoice.id === 'SCISSOR') {
         result = 'YOU LOSE'
@@ -72,9 +72,9 @@ class App extends Component {
       } else {
         result = 'IT IS DRAW'
       }
-    } else if (id === 'SCISSOR') {
+    } else if (id === 'SCISSORS') {
       if (opponentChoice.id === 'PAPER') {
-        result = 'YOU W0N'
+        result = 'YOU WON'
         this.setState(prevState => ({score: prevState.score + 1}))
       } else if (opponentChoice.id === 'ROCK') {
         result = 'YOU LOSE'
@@ -113,19 +113,29 @@ class App extends Component {
         </div>
         {renderResult ? this.renderScore(id, imageUrl) : this.renderChoices()}
         <Popup
-          trigger={<button type="button">Rules</button>}
-          position="right center"
+          modal
+          trigger={
+            <button type="button" className="trigger-button">
+              Rules
+            </button>
+          }
         >
           {close => (
-            <div>
-              <button aria-label="close" onClick={close} type="button">
-                <RiCloseLine />
+            <>
+              <div>
+                <img
+                  src="https://assets.ccbp.in/frontend/react-js/rock-paper-scissor/rules-image.png"
+                  alt="rules"
+                />
+              </div>
+              <button
+                type="button"
+                className="trigger-button"
+                onClick={() => close()}
+              >
+                <RiCloseLine />.
               </button>
-              <img
-                src="https://assets.ccbp.in/frontend/react-js/rock-paper-scissor/rules-image.png"
-                alt="rules"
-              />
-            </div>
+            </>
           )}
         </Popup>
       </div>
