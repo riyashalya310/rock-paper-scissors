@@ -66,7 +66,7 @@ class App extends Component {
       if (opponentChoice.id === 'ROCK') {
         result = 'YOU WON'
         this.setState(prevState => ({score: prevState.score + 1}))
-      } else if (opponentChoice.id === 'SCISSOR') {
+      } else if (opponentChoice.id === 'SCISSORS') {
         result = 'YOU LOSE'
         this.setState(prevState => ({score: prevState.score - 1}))
       } else {
