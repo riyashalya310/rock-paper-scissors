@@ -30,6 +30,8 @@ class App extends Component {
     renderResult: false,
     id: null,
     imageUrl: '',
+    result: '',
+    opponentImage: '',
   }
 
   renderChoices = () => (
@@ -48,7 +50,23 @@ class App extends Component {
     this.setState({renderResult: false})
   }
 
-  renderScore = (id, imageUrl) => {
+  renderScore = () => {
+    const {opponentImage, result, imageUrl} = this.state
+    return (
+      <div>
+        <p>YOU</p>
+        <img src={imageUrl} alt="your choice" />
+        <p>OPPONENT</p>
+        <img src={opponentImage} alt="opponent choice" />
+        <p>{result}</p>
+        <button type="button" onClick={this.onClickPlayAgain}>
+          PLAY AGAIN
+        </button>
+      </div>
+    )
+  }
+
+  onClickChoice = (id, imageUrl) => {
     const randomNumber = Math.floor(Math.random() * choicesList.length)
     const opponentChoice = choicesList[randomNumber % 3]
     let result = ''
@@ -83,23 +101,13 @@ class App extends Component {
         result = 'IT IS DRAW'
       }
     }
-    return (
-      <div>
-        <p>YOU</p>
-        <img src={imageUrl} alt="your choice" />
-        <p>OPPONENT</p>
-        <img src={opponentChoice.imageUrl} alt="opponent choice" />
-        <p>{result}</p>
-        <button type="button" onClick={this.onClickPlayAgain}>
-          PLAY AGAIN
-        </button>
-      </div>
-    )
-  }
-
-  onClickChoice = (id, imageUrl) => {
-    this.setState({renderResult: true, id, imageUrl})
-    return this.renderScore(id, imageUrl)
+    this.setState({
+      renderResult: true,
+      id,
+      imageUrl,
+      result,
+      opponentImage: opponentChoice.imageUrl,
+    })
   }
 
   render() {
